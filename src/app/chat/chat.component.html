@@ -1,0 +1,54 @@
+<section *ngIf="!isUserName" class="userInfo">
+  <input type="text" placeholder="What should we call you ?" autocomplete="off" [(ngModel)]="userName"/>
+  <button mat-flat-button color="accent" (click)="setUserName($event)">Set</button>
+</section>
+
+<audio src="./assets/music/hey.m4a" id="song"></audio>
+
+<section class="chatbox" *ngIf="isUserName">
+  <section class="chat-window">
+
+    <div *ngFor="let chat of chatList">
+      <article class="msg-container msg-remote" id="msg-0">
+        <div class="msg-box">
+          <img class="user-img" id="user-0" src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro" />
+          <div class="flr">
+            <div class="messages">
+              <p class="msg" id="msg-0">
+                  {{chat.bot.chat}}
+              </p>
+            </div>
+            <span class="timestamp">
+              <span class="username">{{chat.bot.name}}</span>&bull;
+              <span class="posttime">{{chat.bot.timestamp}}</span>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="msg-container msg-self" id="msg-0">
+        <div class="msg-box">
+          <div class="flr">
+            <div class="messages">
+              <p class="msg" id="msg-1">
+                  {{chat.self.chat}}
+              </p>
+            </div>
+            <span class="timestamp">
+              <span class="username">{{chat.self.name}}</span>&bull;
+              <span class="posttime">{{chat.self.timestamp}}</span>
+            </span>
+          </div>
+          <img class="user-img" id="user-0" src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro" />
+        </div>
+      </article>
+
+    </div>
+  </section>
+  <form class="chat-input" [formGroup]="chatForm" (ngSubmit)="sendChat()">
+    <input type="text" formControlName="chatText" placeholder="Type text here." autocomplete="off" [(ngModel)]="inputText"/>
+    <button mat-fab color="primary" type="submit" [disabled]="!inputText">
+      <mat-icon class="test">send</mat-icon>
+    </button>
+  </form>
+</section>
